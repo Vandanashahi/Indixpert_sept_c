@@ -99,7 +99,7 @@ void dashboard(int userIndex) {
         scanf("%d", &choice);
         
         if (choice == 1) {
-//            bookSeat();
+           bookSeat();
         } else if (choice == 2) {
             // deleteSeat();
         } else if (choice == 3) {
