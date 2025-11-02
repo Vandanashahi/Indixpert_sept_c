@@ -101,7 +101,7 @@ void dashboard(int userIndex) {
         if (choice == 1) {
             bookSeat();
         } else if (choice == 2) {
-            // deleteSeat();
+             deleteSeat();
         } else if (choice == 3) {
              viewBuses();
         } else if (choice == 4) {
@@ -181,16 +181,13 @@ void bookSeat() {
     printf("Enter Number of Seats: ");
     scanf("%d", &seatNo);
     
-    int i = 0;
-    while (i < Max_Buses) {
+    for (int i = 0; i < Max_Buses; i++) {
         if (buses[i].busNo == busNo) {
-            int j = 0;
-            while (j < Max_Seat && booked < seatNo) {
+            for (int j = 0; j < Max_Seat && booked < seatNo; j++) {
                 if (buses[i].seats[j] == 0) {
                     buses[i].seats[j] = 1;
                     booked++;
                 }
-                j++;
             }
             
             if (booked == seatNo)
@@ -200,13 +197,39 @@ void bookSeat() {
             
             return;
         }
-        i++;
     }
     
     printf("\nInvalid Bus Number!\n");
 }
 
-
+void deleteSeat() {
+    int busNo, seatNo, cancelled = 0;
+    
+    printf("Enter Bus Number: ");
+    scanf("%d", &busNo);
+    printf("Enter Number of Seats: ");
+    scanf("%d", &seatNo);
+    
+    for (int i = 0; i < Max_Buses; i++) {
+        if (buses[i].busNo == busNo) {
+            for (int j = 0; j < Max_Seat && cancelled < seatNo; j++) {
+                if (buses[i].seats[j] == 1) {
+                    buses[i].seats[j] = 0;
+                    cancelled++;
+                }
+            }
+            
+            if (cancelled == seatNo)
+                printf("\nCancellation Successful! %d seats cancelled on Bus Number %d\n", seatNo, busNo);
+            else
+                printf("\nOnly %d seats could be cancelled!\n", cancelled);
+            
+            return;
+        }
+    }
+    
+    printf("\nInvalid Bus Number!\n");
+}
 int main() {
     int choice = 0, loggedIn = -1;
     busDetails();
